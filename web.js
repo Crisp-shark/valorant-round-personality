@@ -52,6 +52,8 @@
   }
   function renderQuiz(animateQuestion = false) {
     const q=P.questions[state.index];
+    const spikeBriefs=['皮蛋刚出门，爆能器在路上','皮蛋抱包跟队中','皮蛋正在找下包位','爆能器准备就绪'];
+    $('spike-brief').textContent=spikeBriefs[Math.min(3,Math.floor(state.index/3))];
     $('quiz-progress').style.width=((state.index+1)/P.questions.length*100)+'%';
     $('question-count').textContent=`${String(state.index+1).padStart(2,'0')} / ${P.questions.length}`;
     $('round-code').textContent=String(state.index+1).padStart(2,'0');
@@ -117,6 +119,16 @@
     try { await navigator.clipboard.writeText(summary); $('copy-status').textContent='已复制，可以发给队友了。'; }
     catch (_) { $('copy-status').textContent='浏览器未允许复制，请手动选取页面文字。'; }
   });
+  const heroArt=document.querySelector('.hero-art');
+  if (heroArt && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    heroArt.addEventListener('pointermove',event=>{
+      if(event.pointerType==='touch')return;
+      const rect=heroArt.getBoundingClientRect();
+      heroArt.style.setProperty('--drift-x',`${((event.clientX-rect.left)/rect.width-.5)*14}px`);
+      heroArt.style.setProperty('--drift-y',`${((event.clientY-rect.top)/rect.height-.5)*10}px`);
+    });
+    heroArt.addEventListener('pointerleave',()=>{heroArt.style.setProperty('--drift-x','0px');heroArt.style.setProperty('--drift-y','0px');});
+  }
   if(state.screen==='select')renderSelect();
   if(state.screen==='quiz'){state.index=Math.max(0,Math.min(P.questions.length-1,Number(state.index)||0));renderQuiz();}
   if(state.screen==='result')renderResult();
