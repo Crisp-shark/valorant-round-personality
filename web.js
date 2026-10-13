@@ -1,6 +1,7 @@
 (function () {
   'use strict';
   const P = window.ValorantPersonality;
+  const R = window.ValorantReview;
   const $ = id => document.getElementById(id);
   const screens = ['intro','select','quiz','result','gallery'];
   const key = 'valorant-personality-v1';
@@ -14,6 +15,11 @@
     }
   } catch (_) { state = { screen:'intro', galleryReturn:'intro', selected:[], answers:Array(P.questions.length).fill(null), index:0, roleFilter:'all', galleryFilter:'all' }; }
   const save = () => { try { localStorage.setItem(key, JSON.stringify(state)); } catch (_) {} };
+  const reviewKey='valorant-round-review-v1';
+  let reviewStore;
+  try { reviewStore=R.normalizeStore(JSON.parse(localStorage.getItem(reviewKey)||'null')); }
+  catch (_) { reviewStore=R.normalizeStore(null); }
+  const saveReview=()=>{ try { localStorage.setItem(reviewKey,JSON.stringify(reviewStore)); return true; } catch (_) { $('review-status').textContent='浏览器未能保存，请检查本机存储设置。'; return false; } };
   const roleName = id => P.roles.find(item => item.id === id).name;
   const findAgent = name => P.agents.find(item => item.name === name);
   // The five 3×2 atlases follow the agent order in personality.js.
@@ -28,7 +34,8 @@
     const index=P.personas.indexOf(persona), sheet=String(Math.floor(index/6)+1).padStart(2,'0'), tile=index%6;
     return `--mascot-sheet:url('./assets/persona-atlas-${sheet}.webp');--mascot-x:${tile%3*50}%;--mascot-y:${Math.floor(tile/3)*100}%`;
   };
-  const show = screen => { state.screen = screen; screens.forEach(name => { $('screen-'+name).hidden = name !== screen; }); save(); window.scrollTo(0, 0); };
+  const hasFinishedQuiz=()=>{ try { P.makeResult(state.selected,state.answers); return true; } catch (_) { return false; } };
+  const show = screen => { state.screen = screen; screens.forEach(name => { $('screen-'+name).hidden = name !== screen; }); $('resume-review').hidden=!hasFinishedQuiz(); save(); window.scrollTo(0, 0); };
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   function confirmCommand(button, action) {
     if (button.disabled || button.classList.contains('is-advancing')) return;
@@ -118,6 +125,68 @@
     target.replaceChildren();
     list.forEach(item=>{ const row=document.createElement('div'); row.className='score-row'; row.innerHTML=`<div><strong>${item.name}</strong><span>${item.share}%</span></div><div class="score-track"><i style="width:${item.share}%"></i></div>`; target.append(row); });
   }
+  let activeReviewPersona=null;
+  function updateReviewProgress() {
+    if (!activeReviewPersona) return;
+    const items=R.itemsFor(activeReviewPersona),draft=R.draftFor(reviewStore,activeReviewPersona);
+    const count=draft.checked.length;
+    $('review-count').textContent=`${count} / ${items.length}`;
+    $('review-meter').setAttribute('aria-valuenow',String(count));
+    $('review-meter').setAttribute('aria-valuemax',String(items.length));
+    $('review-progress').style.width=`${count/items.length*100}%`;
+    $('review-round').textContent=`第 ${reviewStore.nextNumber} 局`;
+    const focus=items.find(item=>!draft.checked.includes(item.id));
+    $('review-focus').textContent=focus?`下局先练：${focus.text}。`:'七项都勾上了，下局继续做稳。';
+    $('review-archive').disabled=count===0&&!draft.note.trim();
+  }
+  function renderReviewHistory() {
+    $('review-history-count').textContent=`${reviewStore.history.length} 局`;
+    const list=$('review-history-list'); list.replaceChildren();
+    if (!reviewStore.history.length) {
+      const empty=document.createElement('p');empty.className='review-history-empty';empty.textContent='还没有存档。打完一局，勾完就可以收进这里。';list.append(empty);return;
+    }
+    reviewStore.history.forEach(record=>{
+      const card=document.createElement('article');card.className='review-record';
+      const top=document.createElement('div');top.className='review-record-top';
+      const title=document.createElement('strong');
+      const persona=P.personas.find(item=>item.id===record.personaId);
+      title.textContent=`第 ${record.number} 局 · ${persona.herb}`;
+      const time=document.createElement('span');const date=new Date(record.createdAt);
+      time.textContent=Number.isNaN(date.getTime())?'已存档':date.toLocaleString('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+      top.append(title,time);
+      const score=document.createElement('p');score.textContent=`做到 ${record.completed} / ${record.total} 项 · 下局先练：${record.focus}`;
+      card.append(top,score);
+      if (record.note) { const note=document.createElement('p');note.className='review-record-note';note.textContent=`自己的提醒：${record.note}`;card.append(note); }
+      list.append(card);
+    });
+  }
+  function renderReview(persona) {
+    activeReviewPersona=persona;
+    const items=R.itemsFor(persona),draft=R.draftFor(reviewStore,persona),list=$('review-list');
+    list.replaceChildren();
+    items.forEach((item,index)=>{
+      const row=document.createElement('label');row.className='review-item'+(draft.checked.includes(item.id)?' is-checked':'');
+      const input=document.createElement('input');input.type='checkbox';input.value=item.id;input.checked=draft.checked.includes(item.id);
+      const box=document.createElement('span');box.className='review-box';box.setAttribute('aria-hidden','true');box.textContent='✓';
+      const copy=document.createElement('span');copy.className='review-item-copy';
+      const heading=document.createElement('span');heading.className='review-item-heading';
+      const tag=document.createElement('small');tag.textContent=`${String(index+1).padStart(2,'0')} / ${item.tag}`;
+      const title=document.createElement('strong');title.textContent=item.text;heading.append(tag,title);
+      const hint=document.createElement('em');hint.textContent=item.hint;copy.append(heading,hint);
+      row.append(input,box,copy);
+      input.addEventListener('change',()=>{
+        const current=R.draftFor(reviewStore,persona),checked=new Set(current.checked);
+        if (input.checked) checked.add(item.id); else checked.delete(item.id);
+        reviewStore.drafts[persona.id]={...current,checked:[...checked]};
+        row.classList.toggle('is-checked',input.checked);
+        $('review-status').textContent='';saveReview();updateReviewProgress();
+      });
+      list.append(row);
+    });
+    $('review-note').value=draft.note;
+    $('review-status').textContent='';
+    updateReviewProgress();renderReviewHistory();
+  }
   function renderResult() {
     const result=P.makeResult(state.selected,state.answers), persona=result.persona;
     const personaIndex=P.personas.indexOf(persona);
@@ -134,6 +203,7 @@
     $('result-agents').replaceChildren(); result.selectedNames.forEach((name,index)=>{const chip=document.createElement('span');chip.textContent=`0${index+1} ${findAgent(name).cn} · ${name}`;$('result-agents').append(chip);});
     $('secondary-role').textContent=`第二倾向：${result.secondaryRole.name}`;
     renderScores($('role-scores'),result.roles);renderScores($('habit-scores'),result.habits);renderScores($('tempo-scores'),result.tempos);
+    renderReview(persona);
     $('copy-status').textContent='';
   }
   function renderGallery() {
@@ -148,6 +218,7 @@
   }
   function openGallery() { state.galleryReturn=state.screen;renderGallery();show('gallery'); }
   $('home').addEventListener('click',()=>show('intro'));
+  $('resume-review').addEventListener('click',()=>{if(hasFinishedQuiz()){renderResult();show('result');$('review-panel').scrollIntoView({behavior:reducedMotion.matches?'instant':'smooth',block:'start'});}});
   $('start').addEventListener('click',()=>{renderSelect();show('select');});
   $('view-gallery-intro').addEventListener('click',openGallery);
   $('view-gallery-result').addEventListener('click',openGallery);
@@ -158,6 +229,20 @@
   $('quiz-back').addEventListener('click',()=>{if(state.index>0){state.index--;renderQuiz(true);save();}else {renderSelect();show('select');}});
   $('quiz-next').addEventListener('click',()=>{if(state.answers[state.index]===null)return;confirmCommand($('quiz-next'),()=>{if(state.index<P.questions.length-1){state.index++;renderQuiz(true);save();window.scrollTo(0,0);}else{renderResult();show('result');}});});
   $('result-restart').addEventListener('click',()=>{state.selected=[];state.answers=Array(P.questions.length).fill(null);state.index=0;$('agent-search').value='';renderSelect();show('select');});
+  $('review-note').addEventListener('input',()=>{
+    if (!activeReviewPersona) return;
+    reviewStore.drafts[activeReviewPersona.id]={...R.draftFor(reviewStore,activeReviewPersona),note:$('review-note').value};
+    $('review-status').textContent='';saveReview();updateReviewProgress();
+  });
+  $('review-archive').addEventListener('click',()=>{
+    if (!activeReviewPersona) return;
+    const archived=R.archive(reviewStore,activeReviewPersona,new Date().toISOString());
+    if (!archived) return;
+    reviewStore=archived.store;
+    const saved=saveReview();
+    renderReview(activeReviewPersona);
+    $('review-status').textContent=saved?`第 ${archived.record.number} 局已存档，下一局的药笺备好了。`:'浏览器未能保存，请检查本机存储设置。';
+  });
   $('copy-result').addEventListener('click',async()=>{
     const r=P.makeResult(state.selected,state.answers),p=r.persona;
     const summary=`无畏药铺给我配的回合药方：${p.herb} · ${p.name}\n${r.role.name} · ${r.habit.name} · ${r.tempo.name}\n${p.lead}\n擅长：${p.strength}\n队友会吐槽：${p.tease}\n“${p.quote}”\n常玩特工：${r.selectedNames.join(' / ')}\n非官方趣味测试，药名仅为游戏比喻，不代表真实战绩或医疗建议。`;

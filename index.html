@@ -21,6 +21,7 @@
           <h1 id="intro-title">欢迎光临<br><em>无畏药铺</em></h1>
           <p class="intro-lead">秒锁冲点，还是烟里下包？选三位常玩特工，再过十二个回合现场，给你的打法抓一味专属“药”。</p>
           <div class="intro-actions"><button class="button-primary" id="start" type="button">进店配药 <span>↗</span></button><button class="button-link" id="view-gallery-intro" type="button">先看 24 味回合药方 <span>↗</span></button></div>
+          <button class="resume-review" id="resume-review" type="button" hidden><span aria-hidden="true">✚</span><span>上次的药方还在，继续做每局复盘</span><span aria-hidden="true">↗</span></button>
           <div class="intro-meta"><span>3 位常玩特工</span><b>＋</b><span>12 道回合情境</span><b>＝</b><span>你的无畏药方</span></div>
         </div>
         <div class="hero-art apothecary-art" aria-label="斯凯的引路鹰和追猎犬守护高科技无畏药铺" role="img">
@@ -68,6 +69,14 @@
         <div class="flow-top"><span class="overline">PRESCRIPTION READY / 你的无畏药方</span><button class="quiet-button" id="result-restart" type="button">重新配药 ↺</button></div>
         <div class="result-hero"><div class="result-index"><span>HERB NO.</span><strong id="result-number"></strong><span>/ 24</span></div><div class="result-main"><p class="result-kicker" id="result-kicker"></p><h2 id="result-title"></h2><p class="result-nickname" id="result-nickname"></p><p class="result-lead" id="result-lead"></p><div class="result-tags" id="result-tags"></div></div><div class="result-art"><span>药方出炉！</span><div class="result-mascot" id="result-mascot" role="img"></div></div></div>
         <div class="result-layout"><div class="result-left"><section class="result-panel"><span class="panel-label">你的回合说明书</span><div class="description-pair"><span>01 / 你擅长</span><p id="result-strength"></p></div><div class="description-pair"><span>02 / 队友会吐槽</span><p id="result-tease"></p></div><div class="quote-box"><span>你的队内语音</span><strong id="result-quote"></strong></div></section><section class="result-panel pick-panel"><span class="panel-label">你选的 3 位特工</span><div id="result-agents"></div><p>常玩特工只提供战术倾向的起始分；结果主要来自 12 道场景题。</p></section></div><section class="result-panel structure-panel"><div class="structure-heading"><span class="panel-label">人格结构</span><span>偏好占比，不是胜率</span></div><h3>战术位置 <small id="secondary-role"></small></h3><div class="score-list" id="role-scores"></div><h3>赢回合的习惯</h3><div class="score-list" id="habit-scores"></div><h3>行动节奏</h3><div class="score-list" id="tempo-scores"></div><p class="structure-note">占比只比较你本次选择，不衡量水平、真实战绩或心理学人格。</p></section></div>
+        <section class="review-panel" id="review-panel" aria-labelledby="review-title">
+          <div class="review-heading"><div><span class="panel-label">ROUND REVIEW / 战斗改进站</span><h3 id="review-title">每局一张<span>经济复盘药笺</span></h3><p>打完一局再勾。看看点数、技能、时间和人数优势，花出去有没有换回价值。</p></div><div class="review-meter" role="progressbar" id="review-meter" aria-label="本局完成的复盘项目" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0"><strong id="review-count">0 / 7</strong><span id="review-round">第 1 局</span></div></div>
+          <div class="review-track" aria-hidden="true"><span id="review-progress"></span></div>
+          <div class="review-list" id="review-list"></div>
+          <div class="review-bottom"><div class="review-note-wrap"><label for="review-note">下局最想改的一件事 <span>可选</span></label><textarea id="review-note" rows="2" maxlength="120" placeholder="例如：进点前先喊队友跟闪"></textarea><p id="review-focus"></p></div><div class="review-save"><button class="button-primary" id="review-archive" type="button" disabled>存档这局，开启下一局 <span>↗</span></button><span id="review-status" role="status"></span></div></div>
+          <details class="review-history" id="review-history"><summary>查看已存档的复盘 <span id="review-history-count">0 局</span></summary><div id="review-history-list"></div></details>
+          <p class="review-privacy">只保存在这台设备的浏览器里，换设备不会同步。最多保留最近 20 局。</p>
+        </section>
         <div class="result-actions"><button class="button-primary" id="copy-result" type="button">复制我的药方 <span>↗</span></button><button class="button-link" id="view-gallery-result" type="button">查看全部 24 味药方 <span>↗</span></button><span id="copy-status" role="status"></span></div>
       </section>
 
@@ -77,6 +86,7 @@
     <footer><span>无畏药铺 · 非官方玩家趣味项目 · 药名仅为游戏比喻，不作医疗建议</span><span>特工与技能参考 <a href="https://playvalorant.com/en-us/agents/" target="_blank" rel="noreferrer">VALORANT 官方特工列表 ↗</a> · 皮蛋跑步形象为游戏内喷漆素材 · 无真实战绩分析<br><a href="mailto:yuan_cheng@u.nus.edu">联系邮箱：yuan_cheng@u.nus.edu</a></span></footer>
   </div>
   <script src="./lib/personality.js?v=11"></script>
-  <script src="./web.js?v=8"></script>
+  <script src="./lib/review.js?v=1"></script>
+  <script src="./web.js?v=9"></script>
 </body>
 </html>
