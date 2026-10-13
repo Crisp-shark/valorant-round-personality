@@ -16,6 +16,13 @@
   const save = () => { try { localStorage.setItem(key, JSON.stringify(state)); } catch (_) {} };
   const roleName = id => P.roles.find(item => item.id === id).name;
   const findAgent = name => P.agents.find(item => item.name === name);
+  // The five 3×2 atlases follow the agent order in personality.js.
+  const portraitStyle = name => {
+    const index=P.agents.findIndex(agent=>agent.name===name);
+    const sheet=String(Math.floor(index/6)+1).padStart(2,'0');
+    const tile=index%6;
+    return `--portrait-sheet:url('./assets/agent-atlas-${sheet}.jpg');--portrait-x:${tile%3*50}%;--portrait-y:${Math.floor(tile/3)*100}%`;
+  };
   const show = screen => { state.screen = screen; screens.forEach(name => { $('screen-'+name).hidden = name !== screen; }); save(); window.scrollTo(0, 0); };
   const formatTabs = (target, active, handler) => {
     target.replaceChildren();
@@ -30,7 +37,7 @@
     for (let index=0; index<3; index++) {
       const name=state.selected[index], slot=document.createElement('div'); slot.className='selected-slot'+(name?' filled':'')+(name===celebrateName?' just-picked':'');
       if (name) {
-        slot.innerHTML=`<span class="slot-order">0${index+1} / 常玩</span><strong>${findAgent(name).cn}</strong><small>${name} · ${roleName(findAgent(name).role)}</small>`;
+        slot.innerHTML=`<span class="slot-portrait" style="${portraitStyle(name)}" aria-hidden="true"></span><span class="slot-order">0${index+1} / 常玩</span><strong>${findAgent(name).cn}</strong><small>${name} · ${roleName(findAgent(name).role)}</small>`;
         const remove=document.createElement('button'); remove.type='button'; remove.className='slot-remove'; remove.textContent='×'; remove.setAttribute('aria-label',`移除 ${name}`);
         remove.addEventListener('click',()=>{ state.selected.splice(index,1); renderSelect(); save(); }); slot.append(remove);
       } else slot.innerHTML=`<span class="slot-order">0${index+1} / 常玩</span><strong>＋</strong><small>选择特工</small>`;
@@ -42,7 +49,7 @@
     $('agent-grid').replaceChildren();
     list.forEach(agent => {
       const selected=state.selected.indexOf(agent.name), card=document.createElement('button'); card.type='button'; card.className='agent-card'+(selected>=0?' selected':'')+(agent.name===celebrateName?' just-picked':'');
-      card.innerHTML=`<span class="agent-glyph">${agent.name.slice(0,1)}</span><span class="agent-info"><strong>${agent.cn}</strong><small>${agent.name} · ${roleName(agent.role)}</small></span><span class="agent-check">${selected>=0?'0'+(selected+1):'+'}</span>`;
+      card.innerHTML=`<span class="agent-portrait" style="${portraitStyle(agent.name)}" aria-hidden="true"></span><span class="agent-info"><strong>${agent.cn}</strong><small>${agent.name} · ${roleName(agent.role)}</small></span><span class="agent-check">${selected>=0?'0'+(selected+1):'+'}</span>`;
       card.setAttribute('aria-pressed',String(selected>=0));
       card.addEventListener('click',()=>{ let picked=null; if(selected>=0) state.selected.splice(selected,1); else if(state.selected.length<3) { state.selected.push(agent.name); picked=agent.name; } renderSelect(picked); save(); });
       $('agent-grid').append(card);
