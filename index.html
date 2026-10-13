@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d1721">
+  <title>你这局到底是什么人？｜瓦罗兰特人格测试</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <button class="brand" type="button" id="home" aria-label="返回测试首页"><span class="brand-symbol" aria-hidden="true">V<span>?</span></span><span>回合人格档案<small>VALORANT PERSONALITY FILE</small></span></button>
+      <span class="top-status"><i></i> 非官方玩家趣味测试 <span class="top-code">/ 24 TYPES</span></span>
+    </header>
+
+    <main>
+      <section id="screen-intro" class="screen intro-screen" aria-labelledby="intro-title">
+        <div class="intro-copy">
+          <p class="kicker"><span>01 / PLAYER FILE</span><span class="kicker-line"></span><span>局内行为鉴定中</span></p>
+          <h1 id="intro-title">你这局<br><em>到底是什么人？</em></h1>
+          <p class="intro-lead">有人秒锁冲点，有人一心下包。你常玩的特工和每回合的选择，拼起来就是你的瓦罗兰特人格。</p>
+          <div class="intro-actions"><button class="button-primary" id="start" type="button">开始测试 <span>↗</span></button><button class="button-link" id="view-gallery-intro" type="button">先偷看 24 种人格 <span>↗</span></button></div>
+          <div class="intro-meta"><span>选 3 位常玩特工</span><b>+</b><span>回答 12 个场景</span><b>=</b><span>你的回合人格结构</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="hero-cross cross-a">+</div><div class="hero-cross cross-b">+</div><div class="hero-ring ring-a"></div><div class="hero-ring ring-b"></div><div class="hero-diamond"><div class="hero-diamond-inner">?</div></div><div class="hero-art-foot">PERSONALITY PROTOCOL <span>00:24</span></div></div>
+      </section>
+
+      <section id="screen-select" class="screen flow-screen" hidden aria-labelledby="select-title">
+        <div class="flow-top"><span class="overline">STEP 01 / AGENT SELECT</span><button class="quiet-button" id="select-back" type="button">← 返回</button></div>
+        <div class="flow-heading"><div><h2 id="select-title">先交出你的<span>常玩特工</span></h2><p>按常玩程度依次选 3 位。它们会影响战术倾向，但题目答案更重要。</p></div><span class="corner-stamp">03 / AGENTS</span></div>
+        <div class="selected-slots" id="selected-slots" aria-live="polite"></div>
+        <div class="selector-toolbar"><div class="role-tabs" id="role-tabs" aria-label="按特工定位筛选"></div><label class="agent-search"><span>⌕</span><input id="agent-search" type="search" placeholder="搜索中文名或英文名" autocomplete="off" aria-label="搜索特工"></label></div>
+        <div class="agent-grid" id="agent-grid"></div>
+        <div class="flow-footer"><span id="agent-count"></span><button class="button-primary" id="select-next" type="button" disabled>进入情境题 <span>↗</span></button></div>
+      </section>
+
+      <section id="screen-quiz" class="screen flow-screen quiz-screen" hidden aria-labelledby="question-title">
+        <div class="flow-top"><span class="overline">STEP 02 / ROUND SIMULATION</span><button class="quiet-button" id="quiz-back" type="button">← 上一步</button></div>
+        <div class="quiz-track"><div id="quiz-progress"></div></div>
+        <div class="quiz-counter"><span id="question-count"></span><span>按真实习惯选，别按“最强打法”选</span></div>
+        <div class="quiz-card"><p class="quiz-label">ROUND SCENARIO <span id="round-code"></span></p><h2 id="question-title"></h2><div class="option-list" id="option-list"></div></div>
+        <div class="quiz-actions"><span>没有标准答案，也不会评价你的枪法。</span><button class="button-primary" id="quiz-next" type="button" disabled>下一题 <span>↗</span></button></div>
+      </section>
+
+      <section id="screen-result" class="screen result-screen" hidden aria-labelledby="result-title">
+        <div class="flow-top"><span class="overline">FILE COMPLETE / YOUR ROUND PERSONA</span><button class="quiet-button" id="result-restart" type="button">重新测试 ↺</button></div>
+        <div class="result-hero"><div class="result-index"><span>PERSONA</span><strong id="result-number"></strong><span>/ 24</span></div><div class="result-main"><p class="result-kicker" id="result-kicker"></p><h2 id="result-title"></h2><p class="result-lead" id="result-lead"></p><div class="result-tags" id="result-tags"></div></div><div class="result-glyph" aria-hidden="true">V<span>?</span></div></div>
+        <div class="result-layout"><div class="result-left"><section class="result-panel"><span class="panel-label">你的回合说明书</span><div class="description-pair"><span>01 / 你擅长</span><p id="result-strength"></p></div><div class="description-pair"><span>02 / 队友会吐槽</span><p id="result-tease"></p></div><div class="quote-box"><span>你的队内语音</span><strong id="result-quote"></strong></div></section><section class="result-panel pick-panel"><span class="panel-label">你选的 3 位特工</span><div id="result-agents"></div><p>常玩特工只提供战术倾向的起始分；结果主要来自 12 道场景题。</p></section></div><section class="result-panel structure-panel"><div class="structure-heading"><span class="panel-label">人格结构</span><span>偏好占比，不是胜率</span></div><h3>战术位置 <small id="secondary-role"></small></h3><div class="score-list" id="role-scores"></div><h3>赢回合的习惯</h3><div class="score-list" id="habit-scores"></div><h3>行动节奏</h3><div class="score-list" id="tempo-scores"></div><p class="structure-note">占比只比较你本次选择，不衡量水平、真实战绩或心理学人格。</p></section></div>
+        <div class="result-actions"><button class="button-primary" id="copy-result" type="button">复制人格卡文案 <span>↗</span></button><button class="button-link" id="view-gallery-result" type="button">查看全部 24 种人格 <span>↗</span></button><span id="copy-status" role="status"></span></div>
+      </section>
+
+      <section id="screen-gallery" class="screen gallery-screen" hidden aria-labelledby="gallery-title"><div class="flow-top"><span class="overline">PERSONA INDEX / 24 TYPES</span><button class="quiet-button" id="gallery-back" type="button">← 返回</button></div><div class="flow-heading"><div><h2 id="gallery-title">24 份<span>回合档案</span></h2><p>四种战术位置 × 三种赢法习惯 × 两种行动节奏。看看还有谁被队友这样叫过。</p></div><span class="corner-stamp">24 / FILES</span></div><div class="role-tabs gallery-tabs" id="gallery-tabs" aria-label="按定位筛选人格"></div><div class="persona-grid" id="persona-grid"></div></section>
+    </main>
+
+    <footer><span>回合人格档案 · 非官方粉丝趣味项目</span><span>特工名称与定位参考 <a href="https://playvalorant.com/en-us/agents/" target="_blank" rel="noreferrer">VALORANT 官方特工列表 ↗</a> · 无真实战绩分析<br><a href="mailto:yuan_cheng@u.nus.edu">联系邮箱：yuan_cheng@u.nus.edu</a></span></footer>
+  </div>
+  <script src="./lib/personality.js"></script>
+  <script src="./web.js"></script>
+</body>
+</html>
