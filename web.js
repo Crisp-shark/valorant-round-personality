@@ -80,6 +80,13 @@
   }
   function renderQuiz(animateQuestion = false) {
     const q=P.questions[state.index];
+    const card=$('screen-quiz').querySelector('.quiz-card');
+    const sceneTile=state.index%6;
+    const sceneSheet=String(Math.floor(state.index/6)+1).padStart(2,'0');
+    $('scenario-art').style.cssText=`--scene-sheet:url('./assets/scenario-atlas-${sceneSheet}.webp');--scene-x:${sceneTile%3*50}%;--scene-y:${Math.floor(sceneTile/3)*100}%`;
+    $('scenario-kind').textContent=state.index<5?'战术位置':state.index<9?'回合目标':'行动节奏';
+    card.dataset.act=state.index<5?'role':state.index<9?'objective':'tempo';
+    card.classList.toggle('has-answer',state.answers[state.index]!==null);
     const spikeBriefs=['皮蛋刚出门，爆能器在路上','皮蛋抱包跟队中','皮蛋正在找下包位','爆能器准备就绪'];
     $('spike-brief').textContent=spikeBriefs[Math.min(3,Math.floor(state.index/3))];
     const progress=((state.index+1)/P.questions.length*100)+'%';
@@ -102,7 +109,6 @@
     $('quiz-next-caption').textContent=finalRound?'PERSONA REVEAL':`ROUND ${String(state.index+1).padStart(2,'0')} / ${P.questions.length}`;
     $('quiz-next-label').textContent=finalRound?'生成我的人格':'下一题';
     if (animateQuestion) {
-      const card=$('screen-quiz').querySelector('.quiz-card');
       card.classList.remove('question-enter');
       void card.offsetWidth;
       card.classList.add('question-enter');
