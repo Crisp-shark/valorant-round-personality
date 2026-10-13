@@ -24,6 +24,19 @@
     return `--portrait-sheet:url('./assets/agent-atlas-${sheet}.jpg');--portrait-x:${tile%3*50}%;--portrait-y:${Math.floor(tile/3)*100}%`;
   };
   const show = screen => { state.screen = screen; screens.forEach(name => { $('screen-'+name).hidden = name !== screen; }); save(); window.scrollTo(0, 0); };
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function confirmCommand(button, action) {
+    if (button.disabled || button.classList.contains('is-advancing')) return;
+    if (reducedMotion.matches) { action(); return; }
+    const currentScreen=state.screen;
+    button.classList.add('is-advancing');
+    button.setAttribute('aria-busy','true');
+    window.setTimeout(()=>{
+      button.classList.remove('is-advancing');
+      button.removeAttribute('aria-busy');
+      if (state.screen===currentScreen) action();
+    },270);
+  }
   const formatTabs = (target, active, handler) => {
     target.replaceChildren();
     [{id:'all',name:'全部'},...P.roles].forEach(item => {
@@ -56,6 +69,9 @@
     });
     $('agent-count').textContent=`已选 ${state.selected.length} / 3 · 显示 ${list.length} 位特工`;
     $('select-next').disabled=state.selected.length!==3;
+    $('select-next').dataset.count=String(state.selected.length);
+    $('select-next').style.setProperty('--charge',`${state.selected.length/3*100}%`);
+    $('select-next-caption').textContent=`特工就位 ${state.selected.length} / 3`;
   }
   function renderQuiz(animateQuestion = false) {
     const q=P.questions[state.index];
@@ -73,7 +89,10 @@
       button.addEventListener('click',()=>{ state.answers[state.index]=index; renderQuiz(); save(); }); $('option-list').append(button);
     });
     $('quiz-next').disabled=state.answers[state.index]===null;
-    $('quiz-next').innerHTML=state.index===P.questions.length-1?'生成我的人格 <span>↗</span>':'下一题 <span>↗</span>';
+    const finalRound=state.index===P.questions.length-1;
+    $('quiz-next-number').textContent=finalRound?'★':String(state.index+2).padStart(2,'0');
+    $('quiz-next-caption').textContent=finalRound?'PERSONA REVEAL':`ROUND ${String(state.index+1).padStart(2,'0')} / ${P.questions.length}`;
+    $('quiz-next-label').textContent=finalRound?'生成我的人格':'下一题';
     if (animateQuestion) {
       const card=$('screen-quiz').querySelector('.quiz-card');
       card.classList.remove('question-enter');
@@ -116,9 +135,9 @@
   $('gallery-back').addEventListener('click',()=>{if(state.galleryReturn==='result'){renderResult();show('result');}else show('intro');});
   $('select-back').addEventListener('click',()=>show('intro'));
   $('agent-search').addEventListener('input',()=>renderSelect());
-  $('select-next').addEventListener('click',()=>{if(state.selected.length===3){state.index=0;renderQuiz();show('quiz');}});
+  $('select-next').addEventListener('click',()=>{if(state.selected.length===3)confirmCommand($('select-next'),()=>{state.index=0;renderQuiz();show('quiz');});});
   $('quiz-back').addEventListener('click',()=>{if(state.index>0){state.index--;renderQuiz(true);save();}else {renderSelect();show('select');}});
-  $('quiz-next').addEventListener('click',()=>{if(state.answers[state.index]===null)return;if(state.index<P.questions.length-1){state.index++;renderQuiz(true);save();window.scrollTo(0,0);}else{renderResult();show('result');}});
+  $('quiz-next').addEventListener('click',()=>{if(state.answers[state.index]===null)return;confirmCommand($('quiz-next'),()=>{if(state.index<P.questions.length-1){state.index++;renderQuiz(true);save();window.scrollTo(0,0);}else{renderResult();show('result');}});});
   $('result-restart').addEventListener('click',()=>{state.selected=[];state.answers=Array(P.questions.length).fill(null);state.index=0;$('agent-search').value='';renderSelect();show('select');});
   $('copy-result').addEventListener('click',async()=>{
     const r=P.makeResult(state.selected,state.answers),p=r.persona;

@@ -118,3 +118,33 @@
 .selected-slot .slot-remove{z-index:3}
 .selected-slot.filled strong{text-shadow:0 2px 8px #000b}
 @media(max-width:760px){.agent-card{min-height:77px;padding:6px;gap:7px}.agent-portrait{width:55px}.agent-info strong{font-size:12px}.agent-info small{font-size:9px}.agent-check{right:4px;top:4px;font-size:11px;min-width:18px}.slot-portrait{width:72px;right:-10px;bottom:-8px}.selected-slot.filled:before{background:linear-gradient(90deg,#271e29 15%,#271e29bf 65%,transparent)}}
+
+/* Tactical confirm buttons: agent lock-in and round advance. */
+.command-button{position:relative;isolation:isolate;overflow:hidden;min-width:232px;min-height:70px;padding:8px 9px;gap:9px;background:repeating-linear-gradient(125deg,#ffffff0e 0 2px,transparent 2px 14px),linear-gradient(110deg,#ff5865,#ed3048 68%,#d72742);clip-path:polygon(0 0,calc(100% - 23px) 0,100% 23px,100% 100%,23px 100%,0 calc(100% - 23px));text-align:left;box-shadow:inset 0 0 0 1px #ffffff2e;transition:transform .18s ease,filter .18s ease,background .18s ease}
+.command-button:before{content:"";position:absolute;z-index:0;top:-30%;bottom:-30%;left:-70%;width:55%;background:linear-gradient(90deg,transparent,#ffffff55,transparent);transform:skewX(-23deg) translateX(0);opacity:0;pointer-events:none}
+.command-button:after{content:"";position:absolute;z-index:2;left:0;bottom:0;width:var(--charge,0%);height:3px;background:#fff4c7;box-shadow:0 0 11px #fff4c7;transition:width .28s ease;pointer-events:none}
+.command-button:not(:disabled):hover{background:repeating-linear-gradient(125deg,#ffffff15 0 2px,transparent 2px 14px),linear-gradient(110deg,#ff6b75,#f84156 68%,#db3049);filter:drop-shadow(0 7px 13px #ff46554d);transform:translateY(-3px)}
+.command-button:not(:disabled):hover:before{animation:command-glint .55s ease-out both}
+.command-button:not(:disabled):active{transform:translateY(1px) scale(.985);filter:brightness(.92)}
+.command-button.is-advancing{animation:command-confirm .27s ease-out both;pointer-events:none}
+.command-button.is-advancing:before{animation:command-glint .27s ease-out both}
+.command-button:disabled{opacity:1;color:#81929d;background:linear-gradient(110deg,#243641,#1a2b35);box-shadow:inset 0 0 0 1px #43515a}
+.command-button:disabled:after{background:var(--red);box-shadow:none}
+.command-button .command-pips,.command-button .command-round{position:relative;z-index:1;width:46px;height:52px;flex:none;display:flex;align-items:center;justify-content:center;background:#16232fdd;clip-path:polygon(0 0,100% 0,100% 100%,12px 100%,0 calc(100% - 12px))}
+.command-button .command-pips{gap:4px;transform:none}.command-button .command-pips i{width:6px;height:17px;background:#536370;transform:skewX(-18deg);transition:background .18s,box-shadow .18s,transform .18s}
+.command-button[data-count="1"] .command-pips i:first-child,.command-button[data-count="2"] .command-pips i:nth-child(-n+2),.command-button[data-count="3"] .command-pips i{background:#ff6571;box-shadow:0 0 9px #ff46559a;transform:skewX(-18deg) scaleY(1.15)}
+.command-button .command-round{font-size:22px;font-weight:900;letter-spacing:-.08em;color:#fff;line-height:1}
+.command-button:disabled .command-round{color:#778b98}
+.command-button .command-copy{position:relative;z-index:1;min-width:0;display:flex;flex:1;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;line-height:1.15;font-size:inherit;font-weight:inherit}
+.command-button .command-copy small{font-size:9px;font-weight:800;letter-spacing:.1em;color:#ffe0e4;white-space:nowrap}
+.command-button .command-copy strong{font-size:16px;font-weight:900;letter-spacing:.025em;white-space:nowrap}
+.command-button:disabled .command-copy small{color:#84949f}.command-button:disabled .command-copy strong{color:#bdc7ce}
+.command-button .command-arrow{position:relative;z-index:1;width:43px;height:52px;flex:none;display:grid;place-items:center;background:#9b2034a3;clip-path:polygon(0 0,100% 0,100% 100%,0 100%);font-size:inherit;font-weight:inherit;transition:background .18s}
+.command-button .command-arrow svg{width:24px;height:24px;transition:transform .2s ease}
+.command-button:not(:disabled):hover .command-arrow{background:#7a182d}.command-button:not(:disabled):hover .command-arrow svg{transform:translate(3px,-3px)}
+.command-button:disabled .command-arrow{background:#344550;color:#7a8d98}
+.command-button--round{--charge:100%}
+@keyframes command-glint{from{left:-70%;opacity:0}20%{opacity:1}to{left:135%;opacity:0}}
+@keyframes command-confirm{0%{transform:translateY(0) scale(1);filter:brightness(1)}40%{transform:translateY(2px) scale(.97);filter:brightness(1.35)}100%{transform:translateY(0) scale(1.01);filter:brightness(1)}}
+@media(max-width:760px){.flow-footer .command-button,.quiz-actions .command-button{min-width:205px;min-height:64px;padding:6px;gap:6px}.command-button .command-pips,.command-button .command-round{width:37px;height:49px}.command-button .command-round{font-size:19px}.command-button .command-copy small{font-size:8px}.command-button .command-copy strong{font-size:13px}.command-button .command-arrow{width:36px;height:49px}.command-button .command-arrow svg{width:21px;height:21px}.quiz-actions>span{max-width:125px}}
+@media(max-width:360px){.flow-footer,.quiz-actions{flex-wrap:wrap}.flow-footer>span,.quiz-actions>span{width:100%;max-width:none}.flow-footer .command-button,.quiz-actions .command-button{margin-left:auto}}
