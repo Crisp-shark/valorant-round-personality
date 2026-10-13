@@ -89,7 +89,7 @@
   .hero-art:before{width:270px;height:270px}.hero-art:after{inset:28px}
   .ring-a,.hero-sweep{width:315px;height:315px}.ring-b{width:370px;height:370px}
   .hero-diamond{width:180px;height:180px}
-  .hero-mascot{width:min(430px,108vw);top:46%}
+  .hero-mascot{width:min(355px,95vw);top:46%}
   .hero-comic{top:38px;left:3px;font-size:13px;padding:9px 11px 12px}.hero-comic span{font-size:15px}
   .hero-beacon{top:22px;right:3px;font-size:7px;padding:7px 8px}
   .hero-status{bottom:3px;left:8px;right:8px;min-height:58px;padding:9px 11px}.hero-status strong{font-size:11px}.hero-status small{font-size:9px}
@@ -97,7 +97,7 @@
   .quiz-brief{font-size:10px;margin:-13px 0 17px;padding:8px 10px}
   .result-hero{min-height:260px;padding-bottom:86px}.result-art{position:absolute;right:0;bottom:0;width:120px;height:115px;opacity:.88;z-index:0}.result-art img{width:165px;right:-22px;bottom:-40px}.result-art span{font-size:9px;top:-8px;right:13px;padding:5px 8px}.result-main{position:relative;z-index:1}.result-lead{max-width:78%}
 }
-@media(max-width:420px){.hero-art{height:335px}.hero-mascot{width:min(415px,107vw)}.hero-status{bottom:0}.hero-status small{font-size:8px}.result-main h2{font-size:43px}}
+@media(max-width:420px){.hero-art{height:335px}.hero-mascot{width:min(350px,92vw)}.hero-status{bottom:0}.hero-status small{font-size:8px}.result-main h2{font-size:43px}}
 
 /* Agent select: illustrated portraits in five lightweight 3×2 atlases. */
 .agent-card{position:relative;min-height:90px;padding:8px;gap:11px;overflow:hidden;background:linear-gradient(135deg,#1d303d,#172631)}
@@ -153,13 +153,12 @@
 .quiz-track{position:relative;height:87px;background:none;--runner-progress:8.333%}
 .quiz-track:before{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#32434e}
 .quiz-track #quiz-progress{position:absolute;left:0;bottom:0;height:4px;box-shadow:0 0 13px #ff46554a;transition:width .55s cubic-bezier(.22,1,.36,1)}
-.quiz-track > .quiz-runner{position:absolute;z-index:1;left:clamp(0px,calc(var(--runner-progress) - 30px),calc(100% - 60px));bottom:4px;width:60px;height:80px;background:none;pointer-events:none;transition:left .55s cubic-bezier(.22,1,.36,1)}
-.quiz-runner:after{content:"";position:absolute;bottom:-6px;left:14px;width:30px;height:7px;border-radius:50%;background:#ff465565;filter:blur(5px);animation:wingman-shadow .52s ease-in-out infinite}
-.quiz-runner-sprite{display:block;position:relative;z-index:1;width:100%;height:100%;background:url('./assets/wingman-run-sprite.webp') 0 0/400% 100% no-repeat;filter:drop-shadow(0 2px 5px #000a);animation:wingman-frames .52s linear infinite,wingman-bounce .52s ease-in-out infinite}
-@keyframes wingman-frames{0%,24.99%{background-position:0 0}25%,49.99%{background-position:33.333% 0}50%,74.99%{background-position:66.667% 0}75%,100%{background-position:100% 0}}
+.quiz-track > .quiz-runner{position:absolute;z-index:1;left:clamp(0px,calc(var(--runner-progress) - 40px),calc(100% - 80px));bottom:4px;width:80px;height:80px;background:none;pointer-events:none;transition:left .55s cubic-bezier(.22,1,.36,1)}
+.quiz-runner:after{content:"";position:absolute;bottom:-6px;left:20px;width:40px;height:7px;border-radius:50%;background:#ff465565;filter:blur(5px);animation:wingman-shadow .52s ease-in-out infinite}
+.quiz-runner-sprite{display:block;position:relative;z-index:1;width:100%;height:100%;background:url('./assets/wingman-official-wiggle.png') center bottom/contain no-repeat;filter:drop-shadow(0 2px 5px #000a);animation:wingman-bounce .52s ease-in-out infinite}
 @keyframes wingman-bounce{0%,50%,100%{transform:translateY(0) rotate(-2deg)}25%,75%{transform:translateY(-3px) rotate(2deg)}}
 @keyframes wingman-shadow{0%,50%,100%{transform:scaleX(1);opacity:.7}25%,75%{transform:scaleX(.7);opacity:.4}}
-@media(max-width:760px){.quiz-track{height:73px}.quiz-track > .quiz-runner{width:51px;height:68px;left:clamp(0px,calc(var(--runner-progress) - 26px),calc(100% - 51px))}.quiz-runner:after{left:10px}}
+@media(max-width:760px){.quiz-track{height:73px}.quiz-track > .quiz-runner{width:66px;height:66px;left:clamp(0px,calc(var(--runner-progress) - 33px),calc(100% - 66px))}.quiz-runner:after{left:15px;width:36px}}
 
 /* Twenty-four original round companions, packed as four 3×2 image atlases. */
 .result-hero{min-height:330px;grid-template-columns:130px minmax(0,1fr) 205px}
