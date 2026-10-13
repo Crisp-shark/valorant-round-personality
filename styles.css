@@ -148,3 +148,15 @@
 @keyframes command-confirm{0%{transform:translateY(0) scale(1);filter:brightness(1)}40%{transform:translateY(2px) scale(.97);filter:brightness(1.35)}100%{transform:translateY(0) scale(1.01);filter:brightness(1)}}
 @media(max-width:760px){.flow-footer .command-button,.quiz-actions .command-button{min-width:205px;min-height:64px;padding:6px;gap:6px}.command-button .command-pips,.command-button .command-round{width:37px;height:49px}.command-button .command-round{font-size:19px}.command-button .command-copy small{font-size:8px}.command-button .command-copy strong{font-size:13px}.command-button .command-arrow{width:36px;height:49px}.command-button .command-arrow svg{width:21px;height:21px}.quiz-actions>span{max-width:125px}}
 @media(max-width:360px){.flow-footer,.quiz-actions{flex-wrap:wrap}.flow-footer>span,.quiz-actions>span{width:100%;max-width:none}.flow-footer .command-button,.quiz-actions .command-button{margin-left:auto}}
+
+/* Wingman runs above the round progress line as the quiz advances. */
+.quiz-track{position:relative;height:87px;background:none;--runner-progress:8.333%}
+.quiz-track:before{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#32434e}
+.quiz-track #quiz-progress{position:absolute;left:0;bottom:0;height:4px;box-shadow:0 0 13px #ff46554a;transition:width .55s cubic-bezier(.22,1,.36,1)}
+.quiz-track > .quiz-runner{position:absolute;z-index:1;left:clamp(0px,calc(var(--runner-progress) - 30px),calc(100% - 60px));bottom:4px;width:60px;height:80px;background:none;pointer-events:none;transition:left .55s cubic-bezier(.22,1,.36,1)}
+.quiz-runner:after{content:"";position:absolute;bottom:-6px;left:14px;width:30px;height:7px;border-radius:50%;background:#ff465565;filter:blur(5px);animation:wingman-shadow .52s ease-in-out infinite}
+.quiz-runner-sprite{display:block;position:relative;z-index:1;width:100%;height:100%;background:url('./assets/wingman-run-sprite.webp') 0 0/400% 100% no-repeat;filter:drop-shadow(0 2px 5px #000a);animation:wingman-frames .52s linear infinite,wingman-bounce .52s ease-in-out infinite}
+@keyframes wingman-frames{0%,24.99%{background-position:0 0}25%,49.99%{background-position:33.333% 0}50%,74.99%{background-position:66.667% 0}75%,100%{background-position:100% 0}}
+@keyframes wingman-bounce{0%,50%,100%{transform:translateY(0) rotate(-2deg)}25%,75%{transform:translateY(-3px) rotate(2deg)}}
+@keyframes wingman-shadow{0%,50%,100%{transform:scaleX(1);opacity:.7}25%,75%{transform:scaleX(.7);opacity:.4}}
+@media(max-width:760px){.quiz-track{height:73px}.quiz-track > .quiz-runner{width:51px;height:68px;left:clamp(0px,calc(var(--runner-progress) - 26px),calc(100% - 51px))}.quiz-runner:after{left:10px}}

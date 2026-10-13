@@ -77,7 +77,10 @@
     const q=P.questions[state.index];
     const spikeBriefs=['皮蛋刚出门，爆能器在路上','皮蛋抱包跟队中','皮蛋正在找下包位','爆能器准备就绪'];
     $('spike-brief').textContent=spikeBriefs[Math.min(3,Math.floor(state.index/3))];
-    $('quiz-progress').style.width=((state.index+1)/P.questions.length*100)+'%';
+    const progress=((state.index+1)/P.questions.length*100)+'%';
+    $('quiz-progress').style.width=progress;
+    $('quiz-track').style.setProperty('--runner-progress',progress);
+    $('quiz-track').setAttribute('aria-valuenow',String(state.index+1));
     $('question-count').textContent=`${String(state.index+1).padStart(2,'0')} / ${P.questions.length}`;
     $('round-code').textContent=String(state.index+1).padStart(2,'0');
     $('question-title').textContent=q.scene;
