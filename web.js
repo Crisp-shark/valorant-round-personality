@@ -21,7 +21,7 @@
     const index=P.agents.findIndex(agent=>agent.name===name);
     const sheet=String(Math.floor(index/6)+1).padStart(2,'0');
     const tile=index%6;
-    return `--portrait-sheet:url('./assets/agent-atlas-${sheet}.jpg');--portrait-x:${tile%3*50}%;--portrait-y:${Math.floor(tile/3)*100}%`;
+    return `--portrait-sheet:url('./assets/agent-atlas-${sheet}.webp');--portrait-x:${tile%3*50}%;--portrait-y:${Math.floor(tile/3)*100}%`;
   };
   const mascotNames=['冲锋狐狸','冷面猫头鹰','闪送兔子','护送小龟','开幕小火兽','存钱仓鼠','闪光雪貂','侦查蝙蝠','交通青蛙','导航蜗牛','情报机械蜂','箭线纸鹤','拆件烟猫','冷枪变色龙','下包企鹅导演','抱包小蛋','封路章鱼','地图房东幽灵','回防浣熊','架枪寄居蟹','拆包六角龙','守包老龟','陷阱刺猬','绊线蜘蛛'];
   const mascotStyle = persona => {
@@ -123,9 +123,11 @@
     const personaIndex=P.personas.indexOf(persona);
     $('result-number').textContent=String(personaIndex+1).padStart(2,'0');
     $('result-mascot').style.cssText=mascotStyle(persona);
-    $('result-mascot').setAttribute('aria-label',`${persona.name}的专属形象：${mascotNames[personaIndex]}`);
+    $('result-mascot').setAttribute('aria-label',`${persona.herb} · ${persona.name}的专属形象：${mascotNames[personaIndex]}`);
     $('result-kicker').textContent=`${result.role.name} / ${result.habit.name} / ${result.tempo.name}`;
-    $('result-title').textContent=persona.name; $('result-lead').textContent=persona.lead;
+    $('result-title').textContent=persona.herb;
+    $('result-nickname').textContent=`局内外号 / ${persona.name}`;
+    $('result-lead').textContent=persona.lead;
     $('result-strength').textContent=persona.strength; $('result-tease').textContent=persona.tease;
     $('result-quote').textContent='“'+persona.quote+'”';
     $('result-tags').innerHTML=`<span>${result.role.name}</span><span>${result.habit.name}</span><span>${result.tempo.name}</span>`;
@@ -140,7 +142,7 @@
     P.personas.filter(item=>state.galleryFilter==='all'||item.role===state.galleryFilter).forEach(persona=>{
       const card=document.createElement('article'); card.className='persona-card';
       const number=String(P.personas.indexOf(persona)+1).padStart(2,'0');
-      card.innerHTML=`<div class="persona-card-top"><span>FILE ${number}</span><span>${roleName(persona.role)}</span></div><span class="persona-card-art" style="${mascotStyle(persona)}" aria-hidden="true"></span><h3>${persona.name}</h3><p class="persona-lead">${persona.lead}</p><p>${persona.strength}</p><p class="persona-tease">队友会吐槽：${persona.tease}</p><div class="persona-quote">“${persona.quote}”</div>`;
+      card.innerHTML=`<div class="persona-card-top"><span>HERB ${number}</span><span>${roleName(persona.role)}</span></div><span class="persona-card-art" style="${mascotStyle(persona)}" aria-hidden="true"></span><h3>${persona.herb}</h3><p class="persona-card-nickname">局内外号 / ${persona.name}</p><p class="persona-lead">${persona.lead}</p><p>${persona.strength}</p><p class="persona-tease">队友会吐槽：${persona.tease}</p><div class="persona-quote">“${persona.quote}”</div>`;
       $('persona-grid').append(card);
     });
   }
@@ -158,7 +160,7 @@
   $('result-restart').addEventListener('click',()=>{state.selected=[];state.answers=Array(P.questions.length).fill(null);state.index=0;$('agent-search').value='';renderSelect();show('select');});
   $('copy-result').addEventListener('click',async()=>{
     const r=P.makeResult(state.selected,state.answers),p=r.persona;
-    const summary=`我的瓦罗兰特回合人格：${p.name}\n${r.role.name} · ${r.habit.name} · ${r.tempo.name}\n${p.lead}\n擅长：${p.strength}\n队友会吐槽：${p.tease}\n“${p.quote}”\n常玩特工：${r.selectedNames.join(' / ')}\n非官方趣味测试，不代表真实战绩。`;
+    const summary=`无畏药铺给我配的回合药方：${p.herb} · ${p.name}\n${r.role.name} · ${r.habit.name} · ${r.tempo.name}\n${p.lead}\n擅长：${p.strength}\n队友会吐槽：${p.tease}\n“${p.quote}”\n常玩特工：${r.selectedNames.join(' / ')}\n非官方趣味测试，药名仅为游戏比喻，不代表真实战绩或医疗建议。`;
     try { await navigator.clipboard.writeText(summary); $('copy-status').textContent='已复制，可以发给队友了。'; }
     catch (_) { $('copy-status').textContent='浏览器未允许复制，请手动选取页面文字。'; }
   });

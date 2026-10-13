@@ -3,41 +3,52 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0d1721">
-  <title>你这局到底是什么人？｜瓦罗兰特人格测试</title>
-  <link rel="stylesheet" href="./styles.css?v=8">
+  <meta name="theme-color" content="#0b1b20">
+  <title>无畏药铺｜瓦罗兰特回合人格测试</title>
+  <link rel="stylesheet" href="./styles.css?v=9">
 </head>
 <body>
   <div class="site-shell">
     <header class="topbar">
-      <button class="brand" type="button" id="home" aria-label="返回测试首页"><span class="brand-symbol" aria-hidden="true">V<span>?</span></span><span>回合人格档案<small>VALORANT PERSONALITY FILE</small></span></button>
-      <span class="top-status"><i></i> 非官方玩家趣味测试 <span class="top-code">/ 24 TYPES</span></span>
+      <button class="brand" type="button" id="home" aria-label="返回无畏药铺首页"><span class="brand-symbol" aria-hidden="true">药<span>+</span></span><span>无畏药铺<small>ROUND APOTHECARY / 24 REMEDIES</small></span></button>
+      <span class="top-status"><i></i> 回合药方配制中 <span class="top-code">/ 非官方趣味测试</span></span>
     </header>
 
     <main>
       <section id="screen-intro" class="screen intro-screen" aria-labelledby="intro-title">
         <div class="intro-copy">
-          <p class="kicker"><span>01 / PLAYER FILE</span><span class="kicker-line"></span><span>局内行为鉴定中</span></p>
-          <h1 id="intro-title">你这局<br><em>到底是什么人？</em></h1>
-          <p class="intro-lead">有人秒锁冲点，有人一心下包。你常玩的特工和每回合的选择，拼起来就是你的瓦罗兰特人格。</p>
-          <div class="intro-actions"><button class="button-primary" id="start" type="button">开始测试 <span>↗</span></button><button class="button-link" id="view-gallery-intro" type="button">先偷看 24 种人格 <span>↗</span></button></div>
-          <div class="intro-meta"><span>选 3 位常玩特工</span><b>+</b><span>回答 12 个场景</span><b>=</b><span>你的回合人格结构</span></div>
+          <p class="kicker"><span>ROUND APOTHECARY / NOW OPEN</span><span class="kicker-line"></span><span>本局药性检测中</span></p>
+          <h1 id="intro-title">欢迎光临<br><em>无畏药铺</em></h1>
+          <p class="intro-lead">秒锁冲点，还是烟里下包？选三位常玩特工，再过十二个回合现场，给你的打法抓一味专属“药”。</p>
+          <div class="intro-actions"><button class="button-primary" id="start" type="button">进店配药 <span>↗</span></button><button class="button-link" id="view-gallery-intro" type="button">先看 24 味回合药方 <span>↗</span></button></div>
+          <div class="intro-meta"><span>3 位常玩特工</span><b>＋</b><span>12 道回合情境</span><b>＝</b><span>你的无畏药方</span></div>
         </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="hero-cross cross-a">+</div><div class="hero-cross cross-b">+</div>
-          <div class="hero-ring ring-a"></div><div class="hero-ring ring-b"></div>
-          <div class="hero-diamond"></div><div class="hero-sweep"></div>
-          <div class="hero-beacon"><i></i> SPIKE IN TRANSIT</div>
-          <img class="hero-mascot" src="./assets/wingman-official-spike.png" alt="">
-          <div class="hero-comic">皮蛋：包给我！<span>↘</span></div>
-          <div class="hero-status"><span class="hero-status-icon">◆</span><span><strong>爆能器护送中</strong><small>你负责选打法，皮蛋负责抱包</small></span><span class="hero-signal"><i></i><i></i><i></i></span></div>
-          <div class="hero-art-foot">ROUND PERSONALITY PROTOCOL <span>00:24</span></div>
+        <div class="hero-art apothecary-art" aria-label="斯凯的引路鹰和追猎犬守护高科技无畏药铺" role="img">
+          <div class="shop-halo"></div><div class="shop-grid"></div>
+          <div class="shop-shell"><div class="shop-roof"><i></i><i></i><i></i></div><div class="shop-sign"><small>VALORANT · ROUND REMEDIES</small><strong>无畏药铺</strong><span>24 味回合药方 · 即取即用</span></div><div class="shop-window"><span class="shop-scan">TACTICAL FORMULA // 01</span><div class="shop-bottles"><i></i><i></i><i></i><i></i><i></i></div><span class="shop-data">◈ 进点 · 下包 · 回防</span></div><div class="shop-counter"><span>OPEN 24 / 7</span><span>✦ ✦ ✦</span></div></div>
+          <img class="shop-guardian shop-hawk" src="./assets/skye-hawk.webp" alt="">
+          <img class="shop-guardian shop-tiger" src="./assets/skye-tiger.webp" alt="">
+          <span class="guardian-tag guardian-tag--hawk">斯凯 · 引路鹰</span><span class="guardian-tag guardian-tag--tiger">斯凯 · 追猎犬</span>
+          <div class="shop-status"><span class="shop-status-light"></span> 药铺营业中 <span>●</span> 战术配方待领取</div>
+        </div>
+        <div class="skill-shelf">
+          <div class="shelf-heading"><div><span class="overline">THE ABILITY CABINET / 特工技能陈列</span><h2>这边请，先看看<span>今日上架</span></h2></div><p>熟悉的技能，被药铺收进了霓虹玻璃柜。</p></div>
+          <div class="ability-grid">
+            <div class="ability-card" style="--ability:#94f5ac"><span class="ability-icon">✦</span><small>SKYE / E</small><strong>引路鹰</strong><em>闪开，先探路</em></div>
+            <div class="ability-card" style="--ability:#7cebc0"><span class="ability-icon">◆</span><small>SKYE / Q</small><strong>追猎犬</strong><em>拐角侦察员</em></div>
+            <div class="ability-card" style="--ability:#80e8d8"><span class="ability-icon">✚</span><small>SAGE / E</small><strong>治疗宝珠</strong><em>队友续杯中</em></div>
+            <div class="ability-card" style="--ability:#b6a1ff"><span class="ability-icon">◉</span><small>OMEN / E</small><strong>黑暗烟幕</strong><em>视线暂时封存</em></div>
+            <div class="ability-card" style="--ability:#ffd27b"><span class="ability-icon">▣</span><small>KILLJOY / E</small><strong>自动炮台</strong><em>门口有人值班</em></div>
+            <div class="ability-card" style="--ability:#ff9d80"><span class="ability-icon">✸</span><small>RAZE / E</small><strong>彩雷</strong><em>快乐瞬间爆开</em></div>
+            <div class="ability-card" style="--ability:#9bd1ff"><span class="ability-icon">➶</span><small>SOVA / E</small><strong>侦查箭</strong><em>把问号扫出来</em></div>
+            <div class="ability-card" style="--ability:#e1ef8b"><span class="ability-icon">⬟</span><small>GEKKO / Q</small><strong>皮蛋</strong><em>爆能器专送</em></div>
+          </div>
         </div>
       </section>
 
       <section id="screen-select" class="screen flow-screen" hidden aria-labelledby="select-title">
-        <div class="flow-top"><span class="overline">STEP 01 / AGENT SELECT</span><button class="quiet-button" id="select-back" type="button">← 返回</button></div>
-        <div class="flow-heading"><div><h2 id="select-title">先交出你的<span>常玩特工</span></h2><p>按常玩程度依次选 3 位。它们会影响战术倾向，但题目答案更重要。</p></div><span class="corner-stamp">03 / AGENTS</span></div>
+        <div class="flow-top"><span class="overline">STEP 01 / 选三味特工引子</span><button class="quiet-button" id="select-back" type="button">← 返回药铺</button></div>
+        <div class="flow-heading"><div><h2 id="select-title">先选你的<span>常玩特工</span></h2><p>按常玩程度依次选 3 位。可爱头像已上架，结果主要看后面的 12 道题。</p></div><span class="corner-stamp">03 / AGENTS</span></div>
         <div class="selected-slots" id="selected-slots" aria-live="polite"></div>
         <div class="selector-toolbar"><div class="role-tabs" id="role-tabs" aria-label="按特工定位筛选"></div><label class="agent-search"><span>⌕</span><input id="agent-search" type="search" placeholder="搜索中文名或英文名" autocomplete="off" aria-label="搜索特工"></label></div>
         <div class="agent-grid" id="agent-grid"></div>
@@ -45,7 +56,7 @@
       </section>
 
       <section id="screen-quiz" class="screen flow-screen quiz-screen" hidden aria-labelledby="question-title">
-        <div class="flow-top"><span class="overline">STEP 02 / ROUND SIMULATION</span><button class="quiet-button" id="quiz-back" type="button">← 上一步</button></div>
+        <div class="flow-top"><span class="overline">STEP 02 / 回合药性测试</span><button class="quiet-button" id="quiz-back" type="button">← 上一步</button></div>
         <div class="quiz-track" id="quiz-track" role="progressbar" aria-label="答题进度" aria-valuemin="1" aria-valuemax="12" aria-valuenow="1"><div id="quiz-progress"></div><div class="quiz-runner" aria-hidden="true"><span class="quiz-runner-sprite"></span></div></div>
         <div class="quiz-counter"><span id="question-count"></span><span>选你真会做的，别替教练答题</span></div>
         <div class="quiz-brief"><span class="spike-mark" aria-hidden="true">◆</span><span id="spike-brief">皮蛋刚出门，爆能器在路上</span><span class="signal-bars" aria-hidden="true"><i></i><i></i><i></i></span></div>
@@ -54,18 +65,18 @@
       </section>
 
       <section id="screen-result" class="screen result-screen" hidden aria-labelledby="result-title">
-        <div class="flow-top"><span class="overline">FILE COMPLETE / YOUR ROUND PERSONA</span><button class="quiet-button" id="result-restart" type="button">重新测试 ↺</button></div>
-        <div class="result-hero"><div class="result-index"><span>PERSONA</span><strong id="result-number"></strong><span>/ 24</span></div><div class="result-main"><p class="result-kicker" id="result-kicker"></p><h2 id="result-title"></h2><p class="result-lead" id="result-lead"></p><div class="result-tags" id="result-tags"></div></div><div class="result-art"><span>身份暴露！</span><div class="result-mascot" id="result-mascot" role="img"></div></div></div>
+        <div class="flow-top"><span class="overline">PRESCRIPTION READY / 你的无畏药方</span><button class="quiet-button" id="result-restart" type="button">重新配药 ↺</button></div>
+        <div class="result-hero"><div class="result-index"><span>HERB NO.</span><strong id="result-number"></strong><span>/ 24</span></div><div class="result-main"><p class="result-kicker" id="result-kicker"></p><h2 id="result-title"></h2><p class="result-nickname" id="result-nickname"></p><p class="result-lead" id="result-lead"></p><div class="result-tags" id="result-tags"></div></div><div class="result-art"><span>药方出炉！</span><div class="result-mascot" id="result-mascot" role="img"></div></div></div>
         <div class="result-layout"><div class="result-left"><section class="result-panel"><span class="panel-label">你的回合说明书</span><div class="description-pair"><span>01 / 你擅长</span><p id="result-strength"></p></div><div class="description-pair"><span>02 / 队友会吐槽</span><p id="result-tease"></p></div><div class="quote-box"><span>你的队内语音</span><strong id="result-quote"></strong></div></section><section class="result-panel pick-panel"><span class="panel-label">你选的 3 位特工</span><div id="result-agents"></div><p>常玩特工只提供战术倾向的起始分；结果主要来自 12 道场景题。</p></section></div><section class="result-panel structure-panel"><div class="structure-heading"><span class="panel-label">人格结构</span><span>偏好占比，不是胜率</span></div><h3>战术位置 <small id="secondary-role"></small></h3><div class="score-list" id="role-scores"></div><h3>赢回合的习惯</h3><div class="score-list" id="habit-scores"></div><h3>行动节奏</h3><div class="score-list" id="tempo-scores"></div><p class="structure-note">占比只比较你本次选择，不衡量水平、真实战绩或心理学人格。</p></section></div>
-        <div class="result-actions"><button class="button-primary" id="copy-result" type="button">复制人格卡文案 <span>↗</span></button><button class="button-link" id="view-gallery-result" type="button">查看全部 24 种人格 <span>↗</span></button><span id="copy-status" role="status"></span></div>
+        <div class="result-actions"><button class="button-primary" id="copy-result" type="button">复制我的药方 <span>↗</span></button><button class="button-link" id="view-gallery-result" type="button">查看全部 24 味药方 <span>↗</span></button><span id="copy-status" role="status"></span></div>
       </section>
 
-      <section id="screen-gallery" class="screen gallery-screen" hidden aria-labelledby="gallery-title"><div class="flow-top"><span class="overline">PERSONA INDEX / 24 TYPES</span><button class="quiet-button" id="gallery-back" type="button">← 返回</button></div><div class="flow-heading"><div><h2 id="gallery-title">24 份<span>回合档案</span></h2><p>四种战术位置 × 三种赢法习惯 × 两种行动节奏。看看还有谁被队友这样叫过。</p></div><span class="corner-stamp">24 / FILES</span></div><div class="role-tabs gallery-tabs" id="gallery-tabs" aria-label="按定位筛选人格"></div><div class="persona-grid" id="persona-grid"></div></section>
+      <section id="screen-gallery" class="screen gallery-screen" hidden aria-labelledby="gallery-title"><div class="flow-top"><span class="overline">HERB CABINET / 24 ROUND REMEDIES</span><button class="quiet-button" id="gallery-back" type="button">← 返回</button></div><div class="flow-heading"><div><h2 id="gallery-title">24 味<span>回合药方</span></h2><p>四种战术位置 × 三种赢法习惯 × 两种行动节奏。药名是比喻，外号才是队友最熟悉的你。</p></div><span class="corner-stamp">24 / HERBS</span></div><div class="role-tabs gallery-tabs" id="gallery-tabs" aria-label="按定位筛选人格"></div><div class="persona-grid" id="persona-grid"></div></section>
     </main>
 
-    <footer><span>回合人格档案 · 非官方粉丝趣味项目</span><span>特工名称与定位参考 <a href="https://playvalorant.com/en-us/agents/" target="_blank" rel="noreferrer">VALORANT 官方特工列表 ↗</a> · 皮蛋形象为游戏内喷漆素材 · 无真实战绩分析<br><a href="mailto:yuan_cheng@u.nus.edu">联系邮箱：yuan_cheng@u.nus.edu</a></span></footer>
+    <footer><span>无畏药铺 · 非官方玩家趣味项目 · 药名仅为游戏比喻，不作医疗建议</span><span>特工与技能参考 <a href="https://playvalorant.com/en-us/agents/" target="_blank" rel="noreferrer">VALORANT 官方特工列表 ↗</a> · 皮蛋跑步形象为游戏内喷漆素材 · 无真实战绩分析<br><a href="mailto:yuan_cheng@u.nus.edu">联系邮箱：yuan_cheng@u.nus.edu</a></span></footer>
   </div>
-  <script src="./lib/personality.js?v=9"></script>
-  <script src="./web.js?v=7"></script>
+  <script src="./lib/personality.js?v=10"></script>
+  <script src="./web.js?v=8"></script>
 </body>
 </html>
