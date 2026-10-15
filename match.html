@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d1721">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://valorant-apothecary-party.f2swf77gfz.chatgpt.site; base-uri 'none'; form-action 'none'">
+  <title>药铺组队站｜无畏药铺</title>
+  <link rel="stylesheet" href="./styles.css?v=11">
+  <link rel="stylesheet" href="./match.css?v=1">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar"><a class="brand" href="./"><span class="brand-symbol" aria-hidden="true">药<span>+</span></span><span>无畏药铺<small>PARTY DESK / 药铺组队站</small></span></a><span class="top-status"><i></i> 组队频道 <span class="top-code">/ 非官方玩家项目</span></span></header>
+    <main class="match-main">
+      <div class="match-heading"><p class="overline">ROUND APOTHECARY / PARTY DESK</p><h1>找一位<span>对味的队友</span></h1><p>药方负责看打法，区服、段位和时间负责看能不能真开一局。先登录，再把你的组队名片挂上药铺公告栏。</p></div>
+      <div class="match-banner"><span class="match-banner-icon" aria-hidden="true">✚</span><span>推荐分数只表示资料吻合程度，不代表游戏水平。游戏 ID 仅在邀请被接受后显示。</span></div>
+      <p class="match-status" id="match-status" role="status" aria-live="polite"></p>
+      <section class="match-panel match-recovery" id="recovery-panel" hidden><span class="panel-label">RECOVERY / 一次性恢复码</span><h2>先把这 5 个恢复码存好</h2><p>忘记密码时可用其中一个重新设置。每个只能用一次，离开此页后不再显示。</p><pre id="recovery-codes"></pre><button class="match-invite-button" id="copy-recovery" type="button">复制恢复码</button><button class="quiet-button" id="dismiss-recovery" type="button">我已保存</button></section>
+      <section class="match-auth match-panel" id="match-auth" aria-labelledby="auth-title">
+        <div class="match-panel-title"><span class="panel-label">ACCOUNT / 药铺会员</span><h2 id="auth-title">先领一张组队药笺</h2></div>
+        <div class="match-tabs" role="tablist" aria-label="账号操作"><button id="tab-login" type="button" role="tab" aria-selected="true">登录</button><button id="tab-register" type="button" role="tab" aria-selected="false">注册</button><button id="tab-recover" type="button" role="tab" aria-selected="false">忘记密码</button></div>
+        <form id="auth-form" class="match-form" autocomplete="on"><label>用户名<input id="auth-username" name="username" required minlength="3" maxlength="20" pattern="[A-Za-z][A-Za-z0-9_]{2,19}" autocomplete="username" placeholder="例如 skye_mate"></label><label id="recovery-code-label" hidden>一次性恢复码<input id="auth-code" name="recovery-code" minlength="24" maxlength="24" placeholder="注册时保存的恢复码"></label><label><span id="auth-password-label">密码</span><input id="auth-password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="current-password" placeholder="至少 10 位"></label><button class="button-primary" id="auth-submit" type="submit">登录 <span>↗</span></button></form>
+        <p class="match-fine">只用用户名和密码，不收手机号。注册后请保存一次性恢复码，用于忘记密码时重设。</p>
+      </section>
+      <div id="match-app" hidden>
+        <div class="match-account"><strong id="match-welcome"></strong><button class="quiet-button" id="match-logout" type="button">退出登录</button></div>
+        <section class="match-panel" aria-labelledby="profile-title"><div class="match-panel-title"><span class="panel-label">PROFILE / 我的组队名片</span><h2 id="profile-title">把开黑习惯写清楚</h2><p id="profile-persona-note"></p></div>
+          <form id="profile-form" class="match-form"><div class="match-fields"><label>展示昵称<input id="profile-name" maxlength="20" required placeholder="队友会看到的名字"></label><label>游戏 ID <small>接受邀请后才显示</small><input id="profile-riot" maxlength="40" required placeholder="玩家名#标签"></label><label>区服<select id="profile-region" required><option value="">请选择</option><option value="cn">国服</option><option value="apac">亚太</option><option value="eu">欧洲</option><option value="na">北美</option><option value="other">其他</option></select></label><label>段位<select id="profile-rank" required><option value="">请选择</option><option value="0">黑铁</option><option value="1">青铜</option><option value="2">白银</option><option value="3">黄金</option><option value="4">铂金</option><option value="5">钻石</option><option value="6">超凡</option><option value="7">神话</option><option value="8">辐能战魂</option></select></label><label>常玩定位<select id="profile-role" required><option value="">请选择</option><option value="duelist">决斗者</option><option value="initiator">先锋</option><option value="controller">控场者</option><option value="sentinel">哨卫</option></select></label><label>语音习惯<select id="profile-voice"><option value="0">能开麦</option><option value="1">看情况开麦</option><option value="2">只打字</option></select></label><label class="match-span">我的人格药方<select id="profile-persona" required><option value="">先做测试或选择人格</option></select></label></div>
+          <fieldset class="match-time"><legend>一般什么时候玩？可多选</legend><label><input type="checkbox" value="1"> 工作日白天</label><label><input type="checkbox" value="2"> 工作日晚上</label><label><input type="checkbox" value="4"> 周末白天</label><label><input type="checkbox" value="8"> 周末晚上</label><label><input type="checkbox" value="16"> 深夜</label></fieldset>
+          <label class="match-toggle"><input id="profile-discoverable" type="checkbox"><span>在组队公告栏公开我的名片</span></label><p class="match-fine">公开名片时，别人能看到昵称、用户名、区服、段位、定位、时间和药方。游戏 ID 仍需双方同意组队后才会显示。</p><button class="button-primary" type="submit">保存组队名片 <span>↗</span></button></form>
+        </section>
+        <section class="match-panel" aria-labelledby="recommend-title"><div class="match-panel-title"><span class="panel-label">RECOMMEND / 今日合拍</span><h2 id="recommend-title">药铺给你配的队友</h2><p>同区服优先，再看段位、空闲时间和打法互补。</p></div><button class="button-link" id="refresh-matches" type="button">刷新推荐 ↗</button><div class="match-card-grid" id="match-candidates"></div></section>
+        <section class="match-panel" aria-labelledby="invites-title"><div class="match-panel-title"><span class="panel-label">INVITATIONS / 组队回执</span><h2 id="invites-title">邀请与已配对队友</h2></div><div class="match-invites" id="match-invites"></div></section>
+        <details class="match-danger"><summary>账号管理</summary><p>删除账号会清除你的名片、邀请和登录记录，无法撤销。</p><label>输入用户名确认<input id="delete-confirm" autocomplete="off"></label><label>输入密码确认<input id="delete-password" type="password" autocomplete="current-password"></label><button id="delete-account" type="button">永久删除账号</button></details>
+      </div>
+    </main>
+    <footer><span>无畏药铺 · 非官方玩家趣味项目 · 请勿在昵称中填写真实姓名或联系方式</span><span><a href="./">返回人格测试</a> · <a href="mailto:yuan_cheng@u.nus.edu">联系邮箱：yuan_cheng@u.nus.edu</a></span></footer>
+  </div>
+  <script src="./lib/personality.js?v=11"></script>
+  <script src="./match.js?v=1"></script>
+</body>
+</html>

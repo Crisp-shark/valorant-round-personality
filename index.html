@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b1b20">
   <title>无畏药铺｜瓦罗兰特回合人格测试</title>
-  <link rel="stylesheet" href="./styles.css?v=10">
+  <link rel="stylesheet" href="./styles.css?v=11">
 </head>
 <body>
   <div class="site-shell">
@@ -20,7 +20,7 @@
           <p class="kicker"><span>ROUND APOTHECARY / NOW OPEN</span><span class="kicker-line"></span><span>本局药性检测中</span></p>
           <h1 id="intro-title">欢迎光临<br><em>无畏药铺</em></h1>
           <p class="intro-lead">秒锁冲点，还是烟里下包？选三位常玩特工，再过十二个回合现场，给你的打法抓一味专属“药”。</p>
-          <div class="intro-actions"><button class="button-primary" id="start" type="button">进店配药 <span>↗</span></button><button class="button-link" id="view-gallery-intro" type="button">先看 24 味回合药方 <span>↗</span></button></div>
+          <div class="intro-actions"><button class="button-primary" id="start" type="button">进店配药 <span>↗</span></button><button class="button-link" id="view-gallery-intro" type="button">先看 24 味回合药方 <span>↗</span></button><a class="button-link" href="./match.html">去药铺找队友 ↗</a></div>
           <button class="resume-review" id="resume-review" type="button" hidden><span aria-hidden="true">✚</span><span>上次的药方还在，继续做每局复盘</span><span aria-hidden="true">↗</span></button>
           <div class="intro-meta"><span>3 位常玩特工</span><b>＋</b><span>12 道回合情境</span><b>＝</b><span>你的无畏药方</span></div>
         </div>
@@ -77,7 +77,7 @@
           <details class="review-history" id="review-history"><summary>查看已存档的复盘 <span id="review-history-count">0 局</span></summary><div id="review-history-list"></div></details>
           <p class="review-privacy">只保存在这台设备的浏览器里，换设备不会同步。最多保留最近 20 局。</p>
         </section>
-        <div class="result-actions"><button class="button-primary" id="copy-result" type="button">复制我的药方 <span>↗</span></button><button class="button-link" id="view-gallery-result" type="button">查看全部 24 味药方 <span>↗</span></button><span id="copy-status" role="status"></span></div>
+        <div class="result-actions"><button class="button-primary" id="copy-result" type="button">复制我的药方 <span>↗</span></button><a class="button-primary match-entry" href="./match.html">带着药方找队友 <span>↗</span></a><button class="button-link" id="view-gallery-result" type="button">查看全部 24 味药方 <span>↗</span></button><span id="copy-status" role="status"></span></div>
       </section>
 
       <section id="screen-gallery" class="screen gallery-screen" hidden aria-labelledby="gallery-title"><div class="flow-top"><span class="overline">HERB CABINET / 24 ROUND REMEDIES</span><button class="quiet-button" id="gallery-back" type="button">← 返回</button></div><div class="flow-heading"><div><h2 id="gallery-title">24 味<span>回合药方</span></h2><p>四种战术位置 × 三种赢法习惯 × 两种行动节奏。药名是比喻，外号才是队友最熟悉的你。</p></div><span class="corner-stamp">24 / HERBS</span></div><div class="role-tabs gallery-tabs" id="gallery-tabs" aria-label="按定位筛选人格"></div><div class="persona-grid" id="persona-grid"></div></section>
