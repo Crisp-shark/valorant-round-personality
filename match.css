@@ -2,3 +2,10 @@
 
 .match-remove-button{justify-self:start;background:none;border:0;color:#a7b8c2;padding:4px 0;font-size:11px;text-decoration:underline;text-underline-offset:3px}
 .match-recovery{border-color:#ac7f4e;background:linear-gradient(110deg,#3a2b25,#172733)}.match-recovery h2{margin:10px 0}.match-recovery p{color:#d1c2af;font-size:13px}.match-recovery pre{white-space:pre-wrap;word-break:break-all;background:#0d1b25;border:1px solid #805d40;padding:15px;line-height:1.8}.match-recovery button{margin-right:12px}
+
+.match-back{display:inline-flex;align-items:center;gap:12px;min-height:46px;margin-bottom:30px;padding:9px 17px 9px 13px;border:1px solid #ff4655;background:#30212b;color:#fff;text-decoration:none;font-size:14px;font-weight:800;letter-spacing:.02em;transition:background .2s ease,transform .2s ease,box-shadow .2s ease}
+.match-back span:first-child{display:grid;place-items:center;width:26px;height:26px;background:#ff4655;color:#fff;font-size:21px;line-height:1;transition:transform .2s ease}
+.match-back:hover{background:#ff4655;box-shadow:0 8px 24px #ff465533;transform:translateX(-3px)}
+.match-back:hover span:first-child{transform:translateX(-3px)}
+.match-back:focus-visible{outline:2px solid #fff;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){.match-back,.match-back span:first-child{transition:none}}
